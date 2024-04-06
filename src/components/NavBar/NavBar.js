@@ -3,9 +3,11 @@ import { AppBar, Avatar, Button, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import memories from '../../images/memories.png'
+import { jwtDecode } from 'jwt-decode';
 
+import memories from '../../images/memories.png'
 import useStyles from './styles';
+import { LOGOUT } from '../../constants/actionTypes';
 
 const NavBar = () => {
   
@@ -16,8 +18,8 @@ const NavBar = () => {
     const location = useLocation();
 
     const logout = () => {
-        dispatch({ type: 'LOGOUT' });
-        navigate('/');
+        dispatch({ type: LOGOUT });
+        navigate(0);    // will cause the page to refresh
         setUser(null);
     }
 
@@ -25,7 +27,11 @@ const NavBar = () => {
     useEffect(() => {
         const token = user?.token;
 
-        // JWT
+        if (token)  {
+            const decodedToken = jwtDecode(token);
+
+            if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+        }
 
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])

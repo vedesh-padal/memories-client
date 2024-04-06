@@ -11,6 +11,7 @@ import useStyles from './styles';
 import Input from './Input';
 import Icon from './Icon';
 import { signin, signup } from '../../actions/auth';
+import { AUTH } from '../../constants/actionTypes';
 
 // each key representing the name of the component
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
@@ -47,12 +48,12 @@ const Auth = () => {
 
     const googleSuccess = async (res) => {
         // OPTIONAL CHAINING OPERATOR (?.): special operator => that is not going to throw an error if we don't have access to res object (in this case)
-        
+        console.log(res);
         const result = jwtDecode(res?.credential);
-        const token = res?.clientId;
-
+        const token = res?.credential;
+    
         try {
-            dispatch({ type: 'AUTH', data: { result, token } });
+            dispatch({ type: AUTH, data: { result, token } });
             navigate('/');
         }   catch(error)    {
             console.log(error);
