@@ -1,54 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { Container, AppBar, Typography, Grow, Grid } from '@mui/material'
-import { useDispatch } from "react-redux";  // this allows us to dispatch an action
+import React from "react";
+import { Container } from '@mui/material'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { getPosts } from './actions/posts'
-import Posts from './components/Posts/Posts';
-import Form from './components/Form/Form';
-import memories from './images/memories.png'
-import useStyles from './styles'
+import NavBar from "./components/NavBar/NavBar";
+import Home from "./components/Home/Home";
+import Auth from "./components/Auth/Auth";
 
-const App = () => {
-
-    const [currentId, setCurrentId] = useState(null);
-
-    const classes = useStyles();
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getPosts());
-    }, [currentId, dispatch]);
-
-    return (
+const App = () => (
+    <BrowserRouter>
         <Container maxWidth='lg'>
-            <AppBar className={classes.appBar} position='static' color='inherit'>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
-                    <Typography className={classes.heading} variant="h2" align='center'>Memories</Typography>
-                    <img className={classes.img} src={memories} alt='memories' height='60'/>
-                </div>
-                
-            </AppBar>
-            <Grow in>   
-                <Container>
-                    <Grid container 
-                        sx={{
-                            '@media (max-width: 600px)': {
-                                flexDirection: 'column-reverse'
-                            }
-                        }}
-                        className={classes.mainContainer} justify='space-between' alignItems='stretch' spacing={3}>
-                    {/* style={{ marginRight: '3rem', marginLeft: '2rem' }} */}
-                        <Grid item xs={12} sm={7}  >
-                            <Posts setCurrentId={setCurrentId} />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Grow>
+            <NavBar />
+            <Routes>
+                <Route path='/' exact element={<Home />} />
+                <Route path='/auth' exact element={<Auth />} />
+            </Routes>
         </Container>
-    )
-}
+    </BrowserRouter>
+)
 
 export default App;

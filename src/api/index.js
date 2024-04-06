@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const url = 'https://memories-app-basic.onrender.com/posts'
+const API = axios.create({ baseURL: "http://localhost:5000"})
+
+// const url = 'https://memories-app-basic.onrender.com/posts'
 
 // we are exporting this becoz we want to add redux capabilites
 // all actions to the backend are being done using redux in this project
@@ -8,8 +10,11 @@ const url = 'https://memories-app-basic.onrender.com/posts'
 // for that we will be creating some folder structure and files which will make managing the states easier
 // which will have our consistency
 
-export const fetchPosts = () => axios.get(url);
-export const createPost = (newPost) => axios.post(url, newPost);
-export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);
-export const deletePost = (id) => axios.delete(`${url}/${id}`);
-export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
+export const fetchPosts = () => API.get('/posts');
+export const createPost = (newPost) => API.post('/posts', newPost);
+export const updatePost = (id, updatedPost) => API.patch(`posts/${id}`, updatedPost);
+export const deletePost = (id) => API.delete(`posts/${id}`);
+export const likePost = (id) => API.patch(`posts/${id}/likePost`);
+
+export const signIn = (formData) => API.post('/users/signin', formData);
+export const signUp = (formData) => API.post('/users/signup', formData);
