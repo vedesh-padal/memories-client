@@ -1,17 +1,4 @@
-// const reducer = (state, action) => {
-//     if(action.type === 'CREATE')    {
-//         // return ...; // action or state: []
-//     }
-
-//     if(action.type === 'CREATE')    {
-//         // return ...; // action or state: []
-//     }
-// }
-
-// state needs to have some initial value
-
 import { CREATE, FETCH_ALL, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
-
 
 export default (posts = [], action) => {
     switch(action.type) {
@@ -28,3 +15,20 @@ export default (posts = [], action) => {
             return posts;
     }
 }
+/*
+// BASIC KNOWLEDGE ABOUT REDUCERS
+
+    const reducer = (state=null, action) => {
+        if(action.type === 'CREATE')    {
+            // return ...; // action or state: []
+        }
+
+        if(action.type === 'CREATE')    {
+            // return ...; // action or state: []
+        }
+    }
+
+    // state needs to have some initial value
+    }
+
+*/

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
-import memories from '../../images/memories.png'
+import memories from '../../images/memories.png';
 import useStyles from './styles';
 import { LOGOUT } from '../../constants/actionTypes';
 
@@ -61,4 +61,4 @@ const NavBar = () => {
   )
 }
 
-export default NavBar
+export default NavBar;

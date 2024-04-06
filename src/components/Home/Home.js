@@ -2,7 +2,6 @@ import React, {useState, useEffect } from 'react';
 import { Grow, Container, Grid } from '@mui/material';
 import { useDispatch } from "react-redux";  // this allows us to dispatch an action
 
-
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form'
 import { getPosts } from '../../actions/posts';

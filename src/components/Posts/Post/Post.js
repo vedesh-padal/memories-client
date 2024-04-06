@@ -8,7 +8,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import useStyles from './styles';
-
+import noImage from '../../../images/noImage.png';
 import { deletePost, likePost } from '../../../actions/posts';
 
 const Post = ({ post, setCurrentId }) => {
@@ -16,7 +16,6 @@ const Post = ({ post, setCurrentId }) => {
     const classes = useStyles();
 
     const user = JSON.parse(localStorage.getItem('profile'));
-
 
     const Likes = () => {
         if (post.likes.length > 0)  {
@@ -36,10 +35,9 @@ const Post = ({ post, setCurrentId }) => {
         return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
     }
 
-
     return (
         <Card sx={{ borderRadius: '15px' }} className={classes.card}>
-            <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
+            <CardMedia className={classes.media} image={ post.selectedFile ? post.selectedFile : noImage } title={post.title} />
             <div className={classes.overlay}>
                 <Typography variant='h6'>{post.name}</Typography>
                 <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
@@ -59,7 +57,6 @@ const Post = ({ post, setCurrentId }) => {
                     )
                 }
 
-            
             <div className={classes.details}>
                 <Typography variant='body2' color='textSecondary'>{ post.tags.map((tag) => `#${tag} `) }</Typography>
             </div> 
@@ -78,10 +75,8 @@ const Post = ({ post, setCurrentId }) => {
                             Delete
                         </Button>
                     )
-                }
-                
+                } 
             </CardActions>
-
         </Card>
     )
 }
