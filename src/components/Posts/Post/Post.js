@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpAltOutlined from '@mui/icons-material/ThumbUpAltOutlined'
@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import useStyles from './styles';
 import noImage from '../../../images/noImage.png';
@@ -14,8 +15,23 @@ import { deletePost, likePost } from '../../../actions/posts';
 const Post = ({ post, setCurrentId }) => {
     const dispatch = useDispatch();
     const classes = useStyles();
+    const [isHovered, setIsHovered] = useState(false);
+    const navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem('profile'));
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
+
+    const hoverStyles = {
+        cursor: 'pointer',
+        backgroundColor: isHovered ? 'lightgrey' : 'transparent',
+    };
 
     const Likes = () => {
         if (post.likes.length > 0)  {
@@ -35,35 +51,45 @@ const Post = ({ post, setCurrentId }) => {
         return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
     }
 
+    const openPost = () => {
+        navigate(`/posts/${post._id}`);
+    }
+
     return (
         <Card sx={{ borderRadius: '15px' }} className={classes.card} raised elevation={6}>
-            <CardMedia className={classes.media} image={ post.selectedFile ? post.selectedFile : noImage } title={post.title} />
-            <div className={classes.overlay}>
-                <Typography variant='h6'>{post.name}</Typography>
-                <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
-            </div>
+            <div 
+                style={hoverStyles} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
+                onClick={openPost}
+            >
 
-            { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && 
-                    (
-                        <div className={classes.overlay2}>
-                            <Button
-                                style={{color: 'white'}} 
-                                size='small' 
-                                onClick={() => setCurrentId(post._id)}
-                            >
-                                <MoreHorizIcon fontSize='default' />
-                            </Button>
-                        </div>
-                    )
-                }
+                <CardMedia className={classes.media} image={ post.selectedFile ? post.selectedFile : noImage } title={post.title} />
+                <div className={classes.overlay}>
+                    <Typography variant='h6'>{post.name}</Typography>
+                    <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
+                </div>
 
-            <div className={classes.details}>
-                <Typography variant='body2' color='textSecondary'>{ post.tags.map((tag) => `#${tag} `) }</Typography>
+                { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && 
+                        (
+                            <div className={classes.overlay2}>
+                                <Button
+                                    style={{color: 'white'}} 
+                                    size='small' 
+                                    onClick={() => setCurrentId(post._id)}
+                                >
+                                    <MoreHorizIcon fontSize='default' />
+                                </Button>
+                            </div>
+                        )
+                    }
+
+                <div className={classes.details}>
+                    <Typography variant='body2' color='textSecondary'>{ post.tags.map((tag) => `#${tag} `) }</Typography>
             </div> 
-            <Typography className={classes.title} variant='h5' gutterBottom>{ post.title }</Typography>
-            <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p' >{ post.message }</Typography>
-            </CardContent>
+                <Typography className={classes.title} variant='h5' gutterBottom>{ post.title }</Typography>
+                <CardContent>
+                    <Typography variant='body2' color='textSecondary' component='p' >{ post.message }</Typography>
+                </CardContent>
+            </div>
             <CardActions className={classes.cardActions}>
                 <Button size='small' color='primary' disabled={!user?.result} onClick={ () => dispatch(likePost(post._id)) }>
                     <Likes />

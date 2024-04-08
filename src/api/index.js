@@ -21,6 +21,8 @@ API.interceptors.request.use((req) => {
 // for that we will be creating some folder structure and files which will make managing the states easier
 // which will have our consistency
 
+
+export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => {
     console.log('going to call API request for page: '+ page);
     return API.get(`/posts?page=${page}`);

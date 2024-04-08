@@ -13,7 +13,11 @@ const Posts = ({ setCurrentId }) => {
     if (!posts.length && !isLoading)    return 'No Posts!';
 
     return (
-        isLoading ? <CircularProgress /> : (
+        isLoading ? <div style={{ display: 'flex', alignItems:'center' }}>
+        <div style={{ margin: 'auto' }}>
+            <CircularProgress size='8rem' alignItems='center' sx={{ marginTop: '6rem'}}/> 
+        </div>
+        </div> : (
             <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
                 { posts.map((post) => (
                     // xs => how large or how many parts of width does it take on mobile devices, sm => small and larger

@@ -90,9 +90,10 @@ const Home = () => {
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
 
+                        { console.log(searchQuery) }
                         { (!searchQuery && !tags.length) && (
                             <Paper elevation={6} className={classes.pagination}>
-                                <Pagination page={page}/>
+                                <Pagination page={page} className={classes.pagination}/>
                             </Paper>
                         )}
 

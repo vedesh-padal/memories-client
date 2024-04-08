@@ -1,4 +1,4 @@
-import { CREATE, FETCH_ALL, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from '../constants/actionTypes';
+import { CREATE, FETCH_ALL, FETCH_POST, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from '../constants/actionTypes';
 
 export default (state = { isLoading: true, posts: [] }, action) => {
     switch(action.type) {
@@ -7,7 +7,6 @@ export default (state = { isLoading: true, posts: [] }, action) => {
         case END_LOADING:
             return { ...state, isLoading: false };
         case FETCH_ALL:
-            console.log('fetch_all is now in reducers, now data is going to change');
             return {
                 ...state,
                 posts: action.payload.data,
@@ -18,6 +17,11 @@ export default (state = { isLoading: true, posts: [] }, action) => {
             return {
                 ...state,
                 posts: action.payload
+            }
+        case FETCH_POST:
+            return {
+                ...state,
+                post: action.payload
             }
         case CREATE:
             console.log(action.payload);

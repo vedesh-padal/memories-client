@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from '@mui/material'
 import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 import useStyles from './styles';
 import { createPost, updatePost } from "../../actions/posts";
@@ -10,9 +11,10 @@ import { createPost, updatePost } from "../../actions/posts";
 
 const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' })
-    const post = useSelector( (state) => currentId ? state.posts.find((p) => p._id === currentId) : null );
+    const post = useSelector( (state) => currentId ? state.posts.post.find((p) => p._id === currentId) : null );
     const classes = useStyles();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [isTitleValid, setIsTitleValid] = useState(true);
     const [isMessageValid, setIsMessageValid] = useState(true);
@@ -33,7 +35,7 @@ const Form = ({ currentId, setCurrentId }) => {
           if (currentId)  {
               dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
           }   else    {
-              dispatch(createPost({ ...postData, name: user?.result?.name }));           
+              dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));           
           }
           clear();
           console.log('Form submitted:', postData);

@@ -32,48 +32,45 @@ const Paginate = ({ page }) => {
         dispatch(getPosts(value));
     }
 
-    console.log('current page: ' + page);
     return (
-        // <Pagination 
-        //     classes={{ ul: classes.ul }}
-        //     count={ numberOfPages }
-        //     page={ Number(page) || 1 }
-        //     variant='outlined'
-        //     color='primary'
-        //     onChange={handlePageChange}
-        //     renderItem={ (item) => (
-        //         console.log(item.page, item.selected);
-        //         <PaginationItem 
-        //             { ...item } 
-        //             component={ Link } 
-        //             to={`/posts?page=${item.page}`} 
-        //         />
-        //     ) }
-        // />
-        <Stack spacing={2}> 
-            <Pagination 
-                classes={{ ul: classes.ul }}
-                onChange={handlePageChange} 
-                count={ numberOfPages }
-                page={ Number(page) || 1 }
-                color='primary'
-                renderItem={(item) => {
-                    console.log(item.page);
-                    console.log(page);
-                    return <PaginationItem 
-                        components={{  
-                            previous: ArrowBackIcon,  
-                            next: ArrowForwardIcon  
-                        }} 
-                        {...item} 
-                        component={ Link } 
-                        to={`/posts?page=${item.page}`} 
-                        classes={{ selected: classes.selected }}
-                        selected={item.page === page}
-                    /> 
-                }} 
-            /> 
-        </Stack> 
+        <Pagination 
+            classes={{ ul: classes.ul }}
+            count={ numberOfPages }
+            page={ Number(page) || 1 }
+            variant='outlined'
+            color='primary'
+            onChange={handlePageChange}
+            renderItem={ (item) => (
+                // console.log(item.page, item.selected);
+                <PaginationItem 
+                    { ...item } 
+                    component={ Link } 
+                    to={`/posts?page=${item.page}`} 
+                />
+            ) }
+        />
+        // <Stack spacing={2}> 
+        //     <Pagination 
+        //         classes={{ ul: classes.ul }}
+        //         onChange={handlePageChange} 
+        //         count={ numberOfPages }
+        //         page={ Number(page) || 1 }
+        //         color='primary'
+        //         renderItem={(item) => {
+        //             return <PaginationItem 
+        //                 components={{  
+        //                     previous: ArrowBackIcon,  
+        //                     next: ArrowForwardIcon  
+        //                 }} 
+        //                 {...item} 
+        //                 component={ Link } 
+        //                 to={`/posts?page=${item.page}`} 
+        //                 classes={{ selected: classes.selected }}
+        //                 selected={item.page === page}
+        //             /> 
+        //         }} 
+        //     /> 
+        // </Stack> 
     )
 }
 

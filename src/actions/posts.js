@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_POST, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from '../constants/actionTypes';
 
 // Action Creators are functions that return actions
 
@@ -7,10 +7,10 @@ import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING
 export const getPosts = (page) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING })
-
+        console.log('getPosts() in actions');
         const { data } = await api.fetchPosts(page);
 
-        console.log(data);
+        // console.log(data);
         // return action;
         // instead of returning action, with redux thunk we dispatch the action:
         dispatch({ type: FETCH_ALL, payload: data });
@@ -19,8 +19,26 @@ export const getPosts = (page) => async (dispatch) => {
     }   catch (error)   {
         console.log(error.message);
     }
+}
+
+export const getPost = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: START_LOADING })
+
+        const { data } = await api.fetchPost(id);
+
+        // console.log(data);
+        // return action;
+        // instead of returning action, with redux thunk we dispatch the action:
+        dispatch({ type: FETCH_POST, payload: data });
+        
+        dispatch({ type: END_LOADING });
+    }   catch (error)   {
+        console.log(error.message);
+    }
     
 }
+
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     try {
@@ -34,10 +52,14 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 }
 
 // the below =>  and   => is redux thunk syntax
-export const createPost = (post) => async (dispatch) => {
+export const createPost = (post, navigate) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
         const { data } = await api.createPost(post);
+        console.log('data received');
+        navigate(`/posts/${data._id}`);
+        console.log('navigated successfully')
+
         dispatch({ type: CREATE, payload: data});
         dispatch({ type: END_LOADING });
     }   catch (error)   {
