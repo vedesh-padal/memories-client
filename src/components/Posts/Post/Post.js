@@ -36,7 +36,7 @@ const Post = ({ post, setCurrentId }) => {
     }
 
     return (
-        <Card sx={{ borderRadius: '15px' }} className={classes.card}>
+        <Card sx={{ borderRadius: '15px' }} className={classes.card} raised elevation={6}>
             <CardMedia className={classes.media} image={ post.selectedFile ? post.selectedFile : noImage } title={post.title} />
             <div className={classes.overlay}>
                 <Typography variant='h6'>{post.name}</Typography>

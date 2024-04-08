@@ -7,15 +7,17 @@ import Post from './Post/Post.js'
 import useStyles from './styles-posts'
 
 const Posts = ({ setCurrentId }) => {
-    const posts = useSelector((state) => state.posts)
+    const { posts, isLoading } = useSelector((state) => state.posts);  // in this change (due to pagination):  []  ->  { isLoading, noOfPages, posts: [] }
     const classes = useStyles();
 
+    if (!posts.length && !isLoading)    return 'No Posts!';
+
     return (
-        !posts.length ? <CircularProgress /> : (
+        isLoading ? <CircularProgress /> : (
             <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
                 { posts.map((post) => (
                     // xs => how large or how many parts of width does it take on mobile devices, sm => small and larger
-                    <Grid key={post._id} item xs={12} sm={6} >  
+                    <Grid key={post._id} item xs={12} sm={6} lg={3}>  
                         <Post post={post} setCurrentId={setCurrentId} />
                     </Grid>
                 ))}

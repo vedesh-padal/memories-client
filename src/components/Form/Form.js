@@ -14,6 +14,10 @@ const Form = ({ currentId, setCurrentId }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    const [isTitleValid, setIsTitleValid] = useState(true);
+    const [isMessageValid, setIsMessageValid] = useState(true);
+    const [areTagsValid, setAreTagsValid] = useState(true);
+
     const user = JSON.parse(localStorage.getItem('profile'));
 
     useEffect(() => {
@@ -24,12 +28,23 @@ const Form = ({ currentId, setCurrentId }) => {
         // to not to respond to refresh in the browser
         e.preventDefault();
 
-        if (currentId)  {
-            dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
-        }   else    {
-            dispatch(createPost({ ...postData, name: user?.result?.name }));           
+        if (postData.title.trim() && postData.message.trim() && postData.tags.length != 0) {
+          // Submit form
+          if (currentId)  {
+              dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+          }   else    {
+              dispatch(createPost({ ...postData, name: user?.result?.name }));           
+          }
+          clear();
+          console.log('Form submitted:', postData);
+        } else {
+          // Set validation states for empty fields
+          setIsTitleValid(postData.title.trim() !== '');
+          setIsMessageValid(postData.message.trim() !== '');
+          setAreTagsValid(postData.tags.trim() !== '');
         }
-        clear();
+
+        
     }
 
     if (!user?.result?.name) {
@@ -45,10 +60,13 @@ const Form = ({ currentId, setCurrentId }) => {
     const clear = () => {
         setCurrentId(null);
         setPostData({ title: '', message: '', tags: '', selectedFile: '' });
+        setIsTitleValid(true);
+        setIsMessageValid(true);
+        setAreTagsValid(true);
     }
 
     return (
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} elevation={6}>
         <form
           autoComplete="off"
           noValidate
@@ -60,6 +78,7 @@ const Form = ({ currentId, setCurrentId }) => {
           </Typography>
 
           <TextField
+            required
             name="title"
             variant="outlined"
             label="Title"
@@ -69,8 +88,11 @@ const Form = ({ currentId, setCurrentId }) => {
             onChange={(e) =>
               setPostData({ ...postData, title: e.target.value })
             }
+            error={!isTitleValid}
+            helperText={!isTitleValid && 'Title is required'}
           />
           <TextField
+            required
             name="message"
             variant="outlined"
             label="Message"
@@ -79,8 +101,11 @@ const Form = ({ currentId, setCurrentId }) => {
             onChange={(e) =>
               setPostData({ ...postData, message: e.target.value })
             }
+            error={!isMessageValid}
+            helperText={!isMessageValid && 'Message is required'}
           />
           <TextField
+            required
             name="tags"
             variant="outlined"
             label="Tags (comma seperated)"
@@ -89,6 +114,8 @@ const Form = ({ currentId, setCurrentId }) => {
             onChange={(e) =>
               setPostData({ ...postData, tags: e.target.value.split(",") })
             }
+            error={!areTagsValid}
+            helperText={!areTagsValid && 'Tags are required'}
           />
           <div className={classes.fileInput}>
             <FileBase

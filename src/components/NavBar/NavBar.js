@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
-import memories from '../../images/memories.png';
+import memoriesLogo from '../../images/memories-logo-f-removebg-preview.png';
+import memoriesText from '../../images/memories-text.png'
 import useStyles from './styles';
 import { LOGOUT } from '../../constants/actionTypes';
 
@@ -38,12 +39,12 @@ const NavBar = () => {
 
   return (
     <AppBar className={classes.appBar} position='static' color='inherit'>
-        <div className={classes.brandContainer} sx={{ display: 'flex', justifyContent: 'space-around'}}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
-                <Typography component={Link} to='/' className={classes.heading} variant="h2" align='center'>Memories</Typography>
-                <img className={classes.image} src={memories} alt='memories' height='60'/>
-            </div>
-        </div>
+        <Link to='/' className={classes.brandContainer} >
+            {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0px' }}> */}
+                <img src={memoriesText} alt='icon' height='45px'/>
+                <img className={classes.image} src={memoriesLogo} alt='icon' height='60px'/>
+            {/* </div> */}
+        </Link>
         <Toolbar className={classes.toolbar}>
             { user ? (
                     <div className={classes.profile}>
