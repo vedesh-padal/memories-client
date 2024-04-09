@@ -6,7 +6,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
-import { borderRadius } from '@mui/system';
 import CommentSection from './CommentSection';
 import noImage from '../../images/no-image.png';
 
@@ -62,7 +61,12 @@ const PostDetails = () => {
 					<Divider style={{ margin: '20px 0' }} />
 				</div>
 				<div className={classes.imageSection}>
-					<img className={classes.media} src={ post.selectedFile ? post.selectedFile : noImage } alt={post.title} />
+					{ post.selectedFile ? (
+							<img className={classes.media} src={ post.selectedFile } alt={post.title} />
+						)	:	(
+							<p style={{ fontSize: '2rem', marginRight: '4rem' }}> (No Image uploaded) </p>
+						)
+					}
 				</div>
 			</div>
 			{ recommendedPosts.length && (
@@ -78,7 +82,7 @@ const PostDetails = () => {
 								<Typography gutterBottom variant='subtitle2'> <b> { name } </b></Typography>
 								<Typography gutterBottom variant='subtitle2'> { message } </Typography>
 								<Typography gutterBottom variant='subtitle1'> Likes: { likes.length } </Typography>
-                                <img src={selectedFile} width='200px' style={{ borderRadius: '10px'}}/>
+                                <img src={selectedFile} alt={ title } width='200px' style={{ borderRadius: '10px'}}/>
 
 							</div>
 						))

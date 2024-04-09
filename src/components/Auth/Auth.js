@@ -48,7 +48,6 @@ const Auth = () => {
 
     const googleSuccess = async (res) => {
         // OPTIONAL CHAINING OPERATOR (?.): special operator => that is not going to throw an error if we don't have access to res object (in this case)
-        console.log(res);
         const result = jwtDecode(res?.credential);
         const token = res?.credential;
     

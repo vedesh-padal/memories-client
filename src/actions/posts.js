@@ -7,11 +7,8 @@ import { FETCH_ALL, FETCH_POST, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, S
 export const getPosts = (page) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING })
-        console.log('getPosts() in actions');
         const { data } = await api.fetchPosts(page);
 
-        // console.log(data);
-        // return action;
         // instead of returning action, with redux thunk we dispatch the action:
         dispatch({ type: FETCH_ALL, payload: data });
         
@@ -27,9 +24,6 @@ export const getPost = (id) => async (dispatch) => {
 
         const { data } = await api.fetchPost(id);
 
-        // console.log(data);
-        // return action;
-        // instead of returning action, with redux thunk we dispatch the action:
         dispatch({ type: FETCH_POST, payload: data });
         
         dispatch({ type: END_LOADING });
@@ -51,14 +45,13 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     }
 }
 
-// the below =>  and   => is redux thunk syntax
+// the below =>  and   => is `redux thunk` syntax
 export const createPost = (post, navigate) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
         const { data } = await api.createPost(post);
-        console.log('data received');
+        
         navigate(`/posts/${data._id}`);
-        console.log('navigated successfully')
 
         dispatch({ type: CREATE, payload: data});
         dispatch({ type: END_LOADING });
@@ -100,9 +93,8 @@ export const likePost = (id) => async (dispatch) => {
 export const commentPost = (value, id) => async (dispatch) => {
     try {
         const { data } = await api.comment(value, id);
-        console.log(data);
         dispatch({ type: COMMENT, payload: data });
-
+        
         return data.comments;
     }   catch (error) {
         console.log(error.message);

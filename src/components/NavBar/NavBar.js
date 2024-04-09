@@ -20,7 +20,7 @@ const NavBar = () => {
 
     const logout = () => {
         dispatch({ type: LOGOUT });
-        navigate(0);    // will cause the page to refresh
+        navigate('/');    // will cause the page to refresh
         setUser(null);
     }
 
@@ -40,10 +40,8 @@ const NavBar = () => {
   return (
     <AppBar className={classes.appBar} position='static' color='inherit'>
         <Link to='/' className={classes.brandContainer} >
-            {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0px' }}> */}
-                <img src={memoriesText} alt='icon' height='45px'/>
-                <img className={classes.image} src={memoriesLogo} alt='icon' height='60px'/>
-            {/* </div> */}
+            <img src={memoriesText} alt='icon' height='45px'/>
+            <img className={classes.image} src={memoriesLogo} alt='icon' height='60px'/>
         </Link>
         <Toolbar className={classes.toolbar}>
             { user ? (

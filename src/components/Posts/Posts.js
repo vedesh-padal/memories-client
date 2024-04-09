@@ -1,10 +1,9 @@
 import React from "react";
 import { Grid, CircularProgress } from '@mui/material'
-
 import { useSelector } from "react-redux";
 
 import Post from './Post/Post.js'
-import useStyles from './styles-posts'
+import useStyles from './styles'
 
 const Posts = ({ setCurrentId }) => {
     const { posts, isLoading } = useSelector((state) => state.posts);  // in this change (due to pagination):  []  ->  { isLoading, noOfPages, posts: [] }

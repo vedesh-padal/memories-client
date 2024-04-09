@@ -45,8 +45,6 @@ const Form = ({ currentId, setCurrentId }) => {
           setIsMessageValid(postData.message.trim() !== '');
           setAreTagsValid(postData.tags.trim() !== '');
         }
-
-        
     }
 
     if (!user?.result?.name) {
@@ -93,19 +91,6 @@ const Form = ({ currentId, setCurrentId }) => {
             error={!isTitleValid}
             helperText={!isTitleValid && 'Title is required'}
           />
-          {/* <TextField
-            required
-            name="message"
-            variant="outlined"
-            label="Message"
-            fullWidth
-            value={postData.message}
-            onChange={(e) =>
-              setPostData({ ...postData, message: e.target.value })
-            }
-            error={!isMessageValid}
-            helperText={!isMessageValid && 'Message is required'}
-          /> */}
 
           <TextField
               required

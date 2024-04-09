@@ -24,7 +24,6 @@ export default (state = { isLoading: true, posts: [] }, action) => {
                 post: action.payload
             }
         case CREATE:
-            console.log(action.payload);
             return { ...state, posts: [...state.posts, action.payload] }
         case UPDATE:
         case LIKE:
@@ -45,6 +44,7 @@ export default (state = { isLoading: true, posts: [] }, action) => {
             return state;
     }
 }
+
 /*
 // BASIC KNOWLEDGE ABOUT REDUCERS
 

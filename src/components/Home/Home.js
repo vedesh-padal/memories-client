@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState } from 'react';
 import { Grow, Container, Grid, Paper, AppBar, TextField, Button } from '@mui/material';
 import { useDispatch } from "react-redux";  // this allows us to dispatch an action
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -23,8 +23,7 @@ const Home = () => {
     const navigate = useNavigate();
     const page = query.get('page') || 1; // this will read the URL and returns the value of that parameter
     const searchQuery = query.get('searchQuery');
-    console.log(`url change: `)
-    console.log(searchQuery)
+
     // here removed "fetching posts from Home.js (using useEffect), to implement pagination"
 
     const [search, setSearch] = useState('');
@@ -61,8 +60,8 @@ const Home = () => {
                         }
                     }}
                     className={classes.gridContainer}
-                    justify='space-between' alignItems='stretch' spacing={3}>
-                {/* style={{ marginRight: '3rem', marginLeft: '2rem' }} */}
+                    justify='space-between' alignItems='stretch' spacing={3}
+                >
                     <Grid item xs={12} sm={6} md={9} >
                         <Posts setCurrentId={setCurrentId} />
                     </Grid>
@@ -91,14 +90,11 @@ const Home = () => {
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
 
-                        { console.log('bottom: ') }
-                        { console.log(searchQuery) }
                         { (!searchQuery && !tags.length) && (
                             <Paper elevation={6} className={classes.pagination}>
                                 <Pagination page={page} className={classes.pagination}/>
                             </Paper>
                         )}
-
                         
                     </Grid>
                 </Grid>
