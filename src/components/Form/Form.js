@@ -11,7 +11,7 @@ import { createPost, updatePost } from "../../actions/posts";
 
 const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' })
-    const post = useSelector( (state) => currentId ? state.posts.post.find((p) => p._id === currentId) : null );
+    const post = useSelector( (state) => currentId ? state.posts.posts.find((p) => p._id === currentId) : null );
     const classes = useStyles();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -93,7 +93,7 @@ const Form = ({ currentId, setCurrentId }) => {
             error={!isTitleValid}
             helperText={!isTitleValid && 'Title is required'}
           />
-          <TextField
+          {/* <TextField
             required
             name="message"
             variant="outlined"
@@ -105,6 +105,22 @@ const Form = ({ currentId, setCurrentId }) => {
             }
             error={!isMessageValid}
             helperText={!isMessageValid && 'Message is required'}
+          /> */}
+
+          <TextField
+              required
+              fullWidth
+              rows={4}
+              name='message'
+              variant='outlined'
+              label='Message'
+              multiline
+              value={postData.message}
+              onChange={(e) =>
+                setPostData({ ...postData, message: e.target.value })
+              }
+              error={!isMessageValid}
+              helperText={!isMessageValid && 'Message is required'}
           />
           <TextField
             required

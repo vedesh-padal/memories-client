@@ -7,11 +7,11 @@ import { MuiChipsInput } from 'mui-chips-input';
 import Pagination from '../Pagination';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form'
-import { getPosts, getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
 
 function useQuery() {
-    return new URLSearchParams(useNavigate().search);
+    return new URLSearchParams(useLocation().search);
 }
 
 
@@ -23,7 +23,8 @@ const Home = () => {
     const navigate = useNavigate();
     const page = query.get('page') || 1; // this will read the URL and returns the value of that parameter
     const searchQuery = query.get('searchQuery');
-
+    console.log(`url change: `)
+    console.log(searchQuery)
     // here removed "fetching posts from Home.js (using useEffect), to implement pagination"
 
     const [search, setSearch] = useState('');
@@ -90,6 +91,7 @@ const Home = () => {
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
 
+                        { console.log('bottom: ') }
                         { console.log(searchQuery) }
                         { (!searchQuery && !tags.length) && (
                             <Paper elevation={6} className={classes.pagination}>

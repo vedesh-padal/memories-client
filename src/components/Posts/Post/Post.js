@@ -3,7 +3,8 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpAltOutlined from '@mui/icons-material/ThumbUpAltOutlined'
 import DeleteIcon from '@mui/icons-material/Delete';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -83,7 +84,7 @@ const Post = ({ post, setCurrentId }) => {
                     <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
                 </div>
 
-                { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && 
+                {/* { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && 
                         (
                             <div className={classes.overlay2}>
                                 <Button
@@ -95,7 +96,7 @@ const Post = ({ post, setCurrentId }) => {
                                 </Button>
                             </div>
                         )
-                    }
+                } */}
 
                 <div className={classes.details}>
                     <Typography variant='body2' color='textSecondary'>{ post.tags.map((tag) => `#${tag} `) }</Typography>
@@ -109,12 +110,31 @@ const Post = ({ post, setCurrentId }) => {
                 <Button size='small' color='primary' disabled={!user?.result} onClick={ handleLike }>
                     <Likes />
                 </Button>
+                {/* { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && 
+                        (
+                            <div className={classes.overlay2}>
+                                <Button
+                                    style={{color: 'white'}} 
+                                    size='small' 
+                                    onClick={() => setCurrentId(post._id)}
+                                >
+                                    <EditIcon fontSize='default' />
+                                </Button>
+                            </div>
+                        )
+                } */}
                 { (user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && 
                     (
-                        <Button size='small' color='error' onClick={ () => dispatch(deletePost(post._id)) }>
-                        <DeleteIcon fontSize='small'/>
-                            Delete
-                        </Button>
+                        <>
+                            <Button style={{ color: 'grey' }} onClick={ () => setCurrentId(post._id) } >
+                                <EditIcon fontSize='medium' />
+                            </Button>
+
+                            <Button size='small' color='error' onClick={ () => dispatch(deletePost(post._id)) }>
+                            <DeleteIcon fontSize='small'/>
+                                Delete
+                            </Button>
+                        </>
                     )
                 } 
             </CardActions>
