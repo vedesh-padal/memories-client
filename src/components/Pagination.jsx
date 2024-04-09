@@ -33,22 +33,40 @@ const Paginate = ({ page }) => {
     }
 
     return (
-        <Pagination 
-            classes={{ ul: classes.ul }}
-            count={ numberOfPages }
-            page={ Number(page) || 1 }
-            variant='outlined'
-            color='primary'
-            onChange={handlePageChange}
-            renderItem={ (item) => (
-                // console.log(item.page, item.selected);
-                <PaginationItem 
-                    { ...item } 
-                    component={ Link } 
-                    to={`/posts?page=${item.page}`} 
-                />
-            ) }
-        />
+        // <Pagination 
+        //     classes={{ ul: classes.ul }}
+        //     count={ numberOfPages }
+        //     variant='outlined'
+        //     color='primary'
+        //     onChange={handlePageChange}
+        //     renderItem={ (item) => (
+        //         // console.log(item.page, item.selected);
+        //         <PaginationItem 
+        //             { ...item } 
+        //             component={ Link } 
+        //             to={`/posts?page=${item.page}`} 
+        //         />
+        //     ) }
+        // />
+        <Stack spacing={2}>
+            <Pagination 
+                classes={{ ul: classes.ul }}
+                count={ numberOfPages } 
+                // page={ Number(page) }
+                variant="outlined" 
+                shape="rounded" 
+                color='primary'
+                onChange={handlePageChange}
+                renderItem={ (item) => (
+                    <PaginationItem 
+                        { ...item }
+                        component={ Link }
+                        to={`/posts?page=${item.page}`}
+                    />
+                )}
+            />
+        </Stack>
+
         // <Stack spacing={2}> 
         //     <Pagination 
         //         classes={{ ul: classes.ul }}
