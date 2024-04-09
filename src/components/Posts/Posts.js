@@ -15,7 +15,7 @@ const Posts = ({ setCurrentId }) => {
     return (
         isLoading ? <div style={{ display: 'flex', alignItems:'center' }}>
         <div style={{ margin: 'auto' }}>
-            <CircularProgress size='8rem' alignItems='center' sx={{ marginTop: '6rem'}}/> 
+            <CircularProgress size='8rem' sx={{ marginTop: '6rem'}}/> 
         </div>
         </div> : (
             <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
