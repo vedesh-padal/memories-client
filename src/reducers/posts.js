@@ -1,5 +1,6 @@
 import { CREATE, FETCH_ALL, FETCH_POST, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, COMMENT } from '../constants/actionTypes';
 
+// eslint-disable-next-line
 export default (state = { isLoading: true, posts: [] }, action) => {
     switch(action.type) {
         case START_LOADING:

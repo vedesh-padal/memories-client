@@ -30,7 +30,7 @@ const Form = ({ currentId, setCurrentId }) => {
         // to not to respond to refresh in the browser
         e.preventDefault();
 
-        if (postData.title.trim() && postData.message.trim() && postData.tags.length != 0) {
+        if (postData.title.trim() && postData.message.trim() && postData.tags.length !== 0) {
           // Submit form
           if (currentId)  {
               dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));

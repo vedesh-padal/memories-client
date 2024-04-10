@@ -57,7 +57,6 @@ const Auth = () => {
         }   catch(error)    {
             console.log(error);
         }
-
     }
 
     const googleFailure = (err) => {
@@ -79,7 +78,6 @@ const Auth = () => {
                             <>
                                 <Input name='firstName' label='First Name' handleChange={handleChange} autoFocus half />
                                 <Input name='lastName' label='Last Name' handleChange={handleChange} half />
-
                             </>
                         )
                     }
@@ -90,11 +88,10 @@ const Auth = () => {
                 <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
                     { isSignUp ? 'Sign Up' : 'Sign In' }
                 </Button>
-                {/* google client id: 931574300862-kfdmmv1af6et9vs66s8jfovqoh10ht6u.apps.googleusercontent.com */}
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <GoogleOAuthProvider clientId="931574300862-kfdmmv1af6et9vs66s8jfovqoh10ht6u.apps.googleusercontent.com">
+                    <GoogleOAuthProvider clientId="GOOGLE_CLIENT_ID">
                         <GoogleLogin
-                            clientId="931574300862-kfdmmv1af6et9vs66s8jfovqoh10ht6u.apps.googleusercontent.com"
+                            clientId="GOOGLE_CLIENT_ID"
                             render={ (renderProps) => (
                                 <Button 
                                     variant='contained' 

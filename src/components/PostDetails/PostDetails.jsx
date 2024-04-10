@@ -7,7 +7,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
 import CommentSection from './CommentSection';
-import noImage from '../../images/no-image.png';
 
 const PostDetails = () => {
 
