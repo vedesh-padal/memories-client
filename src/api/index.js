@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: "http://localhost:5000" })
+const API = axios.create({ baseURL: process.env.REACT_APP_API_ADDR })
 
 // for the server middleware to work correctly, we need to add something to each one of our API requests
 API.interceptors.request.use((req) => {
@@ -12,8 +12,6 @@ API.interceptors.request.use((req) => {
     return req;
 
 })
-
-// const url = 'https://memories-app-basic.onrender.com/posts'
 
 // we are exporting this becoz we want to add redux capabilites
 // all actions to the backend are being done using redux in this project
